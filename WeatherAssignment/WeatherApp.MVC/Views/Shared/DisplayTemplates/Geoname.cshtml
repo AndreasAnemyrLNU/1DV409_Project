@@ -1,0 +1,13 @@
+﻿@model Weather.Model.Geoname
+
+<tr>
+    <td>@Html.ActionLink(Model.name, null ,new { Model.geonameId, Model.lat, Model.lng })</td>
+    <td>@Model.geonameId</td>
+    <td>@Model.lat</td>
+    <td>@Model.lng</td>
+</tr>
+ 
+
+
+
+

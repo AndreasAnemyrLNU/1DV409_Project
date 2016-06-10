@@ -1,0 +1,84 @@
+﻿@model WeatherApp.MVC.DataViewModels.WeahterIndexViewModel
+
+@{
+    ViewBag.Title = "MyWeather App";
+}
+
+<div class="jumbotron">
+    <h1>5-Days Forecast</h1>
+    <p class="lead">Search a location to get the 5-days now. Simple so simple!</p>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="panel panel-body background">
+            <div class="container col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(g => g.GeonameSearch)
+                    @Html.EditorFor(g => g.GeonameSearch)
+                    @Html.ValidationMessageFor(g => g.GeonameSearch)
+                </div>
+            </div>
+
+            <div class="container col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(g => g.MaxRow)
+                    @Html.DropDownListFor(g => g.MaxRow, new SelectList(Model.maxRows), new { @class = "form-control", Size = 3 })
+                    @Html.ValidationMessageFor(g => g.MaxRow)
+                </div>
+            </div>
+
+            <div class="container col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(g => g.CountryCode)
+                    @Html.DropDownListFor(g => g.CountryCode, new SelectList(Model.countryCodes), new { @class = "form-control", Size = 3})
+                    @Html.ValidationMessageFor(g => g.CountryCode)
+                </div>
+            </div>
+        </div>
+
+        if (Model.Geonames != null)
+        {    
+        <div class="jumbotron">
+                @Html.DropDownListFor(m => m.GeonameId, new SelectList(Model.Geonames, "geonameId", "name", new { @class = "form-control", Size = 3, Length = 30 }))
+
+        </div>
+        }
+
+        if (Session["geonames"] == null)
+        {
+            <input class="btn btn-block btn-success" type="submit" value="Request" />
+        }
+        else
+        {
+            <input class="btn btn-block btn-success" type="submit" value="Show Forecast" />
+        }
+    }
+
+
+    <div class="container">
+
+        @if (Model.Forecasts != null)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                <div class="panel panel-default">
+                    <div class="panel panel-heading"><h3>@DateTime.Now.AddDays(i).DayOfWeek - (@DateTime.Now.ToShortDateString())</h3></div>
+                    <div class="panel panel-body">
+                        <div id="forecast-collection">
+                            @Html.Partial("ForecastCollectionByDay", Model.GetForecastsByDayZeroBased(i))
+                        </div>
+                    </div>
+                    <div class="panel panel-footer">
+                        <h6>Prognos baserad på serverns data tillgänglig kl. @DateTime.Now.Hour:@DateTime.Now.Minute</h6>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")

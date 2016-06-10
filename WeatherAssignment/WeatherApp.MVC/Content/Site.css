@@ -1,0 +1,234 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.container{
+    border-radius: 10px;
+    border: 1px solid black:
+}
+
+@import url(http://fonts.googleapis.com/css?family=Dosis:200,400,500,600);
+.compass {
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.85);
+  position: relative;
+  font-family: 'Dosis';
+  color: #555;
+  text-shadow: 1px 1px 1px white;
+  left: 10px
+}
+.compass:before {
+  font-weight: bold;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  content: "N";
+  font-size: 14px;
+  top: -2px;
+}
+.compass .direction {
+  height: 100%;
+  width: 100%;
+  display: block;
+  background: #f2f6f5;
+  background: -moz-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f6f5), color-stop(100%, #cbd5d6));
+  background: -webkit-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+  background: -o-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+  border-radius: 100%;
+}
+.compass .direction p {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 80px;
+  display: block;
+  margin-top: -45px;
+  font-weight: bold;
+}
+.compass .direction p span {
+  display: block;
+  line-height: normal;
+  margin-top: -24px;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+.compass .arrow {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+}
+.compass .arrow:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid red;
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  margin-left: -5px;
+  z-index: 99;
+}
+.compass .arrow.nne {
+  transform: rotate(22.5deg);
+}
+.compass .arrow.ne {
+  transform: rotate(45deg);
+}
+.compass .arrow.ene {
+  transform: rotate(67.5deg);
+}
+.compass .arrow.e {
+  transform: rotate(90deg);
+}
+.compass .arrow.ese {
+  transform: rotate(112.5deg);
+}
+.compass .arrow.se {
+  transform: rotate(135deg);
+}
+.compass .arrow.sse {
+  transform: rotate(157.5deg);
+}
+.compass .arrow.s {
+  transform: rotate(180deg);
+}
+.compass .arrow.ssw {
+  transform: rotate(202.5deg);
+}
+.compass .arrow.sw {
+  transform: rotate(-135deg);
+}
+.compass .arrow.wsw {
+  transform: rotate(-114.5deg);
+}
+.compass .arrow.w {
+  transform: rotate(-90deg);
+}
+.compass .arrow.wnw {
+  transform: rotate(-69.5deg);
+}
+.compass .arrow.nw {
+  transform: rotate(-45deg);
+}
+.compass .arrow.nnw {
+  transform: rotate(-24.5deg);
+}
+
+img {
+    height: 100px
+}
+
+.background{
+    background-image: url("weather.jpg");
+    background-size: 100%;
+    box-shadow: grey 10px 10px 40px;
+}
+
+form label{
+    color: white;
+    letter-spacing: 10px;
+    text-shadow: black 1px 1px 5px;
+}
+
+.btn {
+	-moz-box-shadow:inset 0px 1px 0px 0px #91b8b3;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #91b8b3;
+	box-shadow:inset 0px 1px 0px 0px #91b8b3;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
+	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
+	background-color:#768d87;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2b665e;
+    margin: 30px;
+
+}
+.btn:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
+	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
+	background-color:#6c7c7c;
+}
+.btn:active {
+	position:relative;
+	top:1px;
+}
+
+.panel-heading{
+    margin: 8px 8px 35px 8px;
+}
+
+.panel-footer{
+    margin: 10px;
+}
+
+.panel-default{
+        box-shadow: grey 10px 10px 40px;
+}
+
+img{
+    position: absolute;
+    left: -12px;
+    z-index: 1;
+}
+
+i{
+    position: absolute;
+    left: -70px;
+    top: -18px;
+    z-index: 1;
+}

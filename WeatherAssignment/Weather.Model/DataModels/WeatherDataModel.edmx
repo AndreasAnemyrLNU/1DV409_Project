@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Weather.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Forecast">
+          <Key>
+            <PropertyRef Name="forecastId" />
+          </Key>
+          <Property Name="forecastId" Type="int" Nullable="false" />
+          <Property Name="geonameId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="symbolNumer" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="symbolName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="symbolVar" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="windDirectionDeg" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="windDirectionCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="windDirectionName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="windSpeedMps" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="windSpeedName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="temperatureUnit" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="temperatureValue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="temperatureMin" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="temperatureMax" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pressureUnit" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pressureValue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="humidityValue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="humidityUnit" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cloudsValue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cloudsAll" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cloudsUnit" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="timeFrom" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="timeTo" Type="datetime2" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Geoname">
+          <Key>
+            <PropertyRef Name="geonameId" />
+          </Key>
+          <Property Name="toponymName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lat" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lng" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="geonameId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="countryCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="countryName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fcl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fcode" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Forecast_Geoname">
+          <End Role="Geoname" Type="Self.Geoname" Multiplicity="1" />
+          <End Role="Forecast" Type="Self.Forecast" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geoname">
+              <PropertyRef Name="geonameId" />
+            </Principal>
+            <Dependent Role="Forecast">
+              <PropertyRef Name="geonameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WeatherModelStoreContainer">
+          <EntitySet Name="Forecast" EntityType="Self.Forecast" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Geoname" EntityType="Self.Geoname" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Forecast_Geoname" Association="Self.FK_Forecast_Geoname">
+            <End Role="Geoname" EntitySet="Geoname" />
+            <End Role="Forecast" EntitySet="Forecast" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Weather.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Geoname">
+          <Key>
+            <PropertyRef Name="geonameId" />
+          </Key>
+          <Property Name="toponymName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="geonameId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="countryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="countryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fcl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Forecasts" Relationship="Weather.Model.FK_Forecast_Geoname" FromRole="Geoname" ToRole="Forecast" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Geonames" EntityType="Self.Geoname" />
+          <EntitySet Name="Forecasts" EntityType="Weather.Model.Forecast" />
+          <AssociationSet Name="FK_Forecast_Geoname" Association="Weather.Model.FK_Forecast_Geoname">
+            <End Role="Geoname" EntitySet="Geonames" />
+            <End Role="Forecast" EntitySet="Forecasts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Forecast">
+          <Key>
+            <PropertyRef Name="forecastId" />
+          </Key>
+          <Property Name="forecastId" Type="Int32" Nullable="false" />
+          <Property Name="geonameId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="symbolNumer" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="symbolName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="symbolVar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="windDirectionDeg" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="windDirectionCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="windDirectionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="windSpeedMps" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="windSpeedName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="temperatureUnit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="temperatureValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="temperatureMin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="temperatureMax" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pressureUnit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pressureValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="humidityValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="humidityUnit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cloudsValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cloudsAll" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cloudsUnit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="timeFrom" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="timeTo" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Geoname" Relationship="Weather.Model.FK_Forecast_Geoname" FromRole="Forecast" ToRole="Geoname" />
+        </EntityType>
+        <Association Name="FK_Forecast_Geoname">
+          <End Type="Weather.Model.Geoname" Role="Geoname" Multiplicity="1" />
+          <End Type="Weather.Model.Forecast" Role="Forecast" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geoname">
+              <PropertyRef Name="geonameId" />
+            </Principal>
+            <Dependent Role="Forecast">
+              <PropertyRef Name="geonameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WeatherModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Geonames">
+            <EntityTypeMapping TypeName="Weather.Model.Geoname">
+              <MappingFragment StoreEntitySet="Geoname">
+                <ScalarProperty Name="toponymName" ColumnName="toponymName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="lng" ColumnName="lng" />
+                <ScalarProperty Name="geonameId" ColumnName="geonameId" />
+                <ScalarProperty Name="countryCode" ColumnName="countryCode" />
+                <ScalarProperty Name="countryName" ColumnName="countryName" />
+                <ScalarProperty Name="fcl" ColumnName="fcl" />
+                <ScalarProperty Name="fcode" ColumnName="fcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forecasts">
+            <EntityTypeMapping TypeName="Weather.Model.Forecast">
+              <MappingFragment StoreEntitySet="Forecast">
+                <ScalarProperty Name="timeTo" ColumnName="timeTo" />
+                <ScalarProperty Name="timeFrom" ColumnName="timeFrom" />
+                <ScalarProperty Name="cloudsUnit" ColumnName="cloudsUnit" />
+                <ScalarProperty Name="cloudsAll" ColumnName="cloudsAll" />
+                <ScalarProperty Name="cloudsValue" ColumnName="cloudsValue" />
+                <ScalarProperty Name="humidityUnit" ColumnName="humidityUnit" />
+                <ScalarProperty Name="humidityValue" ColumnName="humidityValue" />
+                <ScalarProperty Name="pressureValue" ColumnName="pressureValue" />
+                <ScalarProperty Name="pressureUnit" ColumnName="pressureUnit" />
+                <ScalarProperty Name="temperatureMax" ColumnName="temperatureMax" />
+                <ScalarProperty Name="temperatureMin" ColumnName="temperatureMin" />
+                <ScalarProperty Name="temperatureValue" ColumnName="temperatureValue" />
+                <ScalarProperty Name="temperatureUnit" ColumnName="temperatureUnit" />
+                <ScalarProperty Name="windSpeedName" ColumnName="windSpeedName" />
+                <ScalarProperty Name="windSpeedMps" ColumnName="windSpeedMps" />
+                <ScalarProperty Name="windDirectionName" ColumnName="windDirectionName" />
+                <ScalarProperty Name="windDirectionCode" ColumnName="windDirectionCode" />
+                <ScalarProperty Name="windDirectionDeg" ColumnName="windDirectionDeg" />
+                <ScalarProperty Name="symbolVar" ColumnName="symbolVar" />
+                <ScalarProperty Name="symbolName" ColumnName="symbolName" />
+                <ScalarProperty Name="symbolNumer" ColumnName="symbolNumer" />
+                <ScalarProperty Name="geonameId" ColumnName="geonameId" />
+                <ScalarProperty Name="forecastId" ColumnName="forecastId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
