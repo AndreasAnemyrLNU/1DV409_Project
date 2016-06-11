@@ -12,13 +12,13 @@ namespace WeatherApp.MVC.Controllers
     {
         private readonly IWeatherService _weatherService;
 
-        HomeController()
+        public HomeController()
             :this(new WeatherService())
         {
             //Empty
         }
 
-        HomeController(WeatherService weatherService)
+        public HomeController(WeatherService weatherService)
         {
             _weatherService = weatherService;
         }
@@ -46,25 +46,23 @@ namespace WeatherApp.MVC.Controllers
                     model.Geoname = model.Geonames.Where(g => g.geonameId == model.GeonameId).SingleOrDefault();
 
 
-                    model.Forecasts = new WeatherService().
-                    RefreshForecast
-                    (
-                        model.Geoname.geonameId,
-                        model.Geoname.lat,
-                        model.Geoname.lng
-                    );
+                    model.Forecasts = _weatherService.RefreshForecast
+                                                      (
+                                                          model.Geoname.geonameId,
+                                                          model.Geoname.lat,
+                                                          model.Geoname.lng
+                                                      );
                 }
                 //State seems to be ok. But we have no geonames to test against!
                 //We use a webservice band save a collection Geonames in session Session["geonames"]
                 else
                 {
-                    model.Geonames = new Weather.Domain.Webservices.GeonamesWebservice().
-                                    GetGeonames
-                                    (
-                                        model.GeonameSearch,
-                                        model.CountryCode,
-                                        int.Parse(model.MaxRow)
-                                    );
+                    model.Geonames = _weatherService.GetGeonames
+                                                     (
+                                                         model.GeonameSearch,
+                                                         model.CountryCode,
+                                                         int.Parse(model.MaxRow)
+                                                     );
                     Session["geonames"] = model.Geonames;
                 }
             }
