@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using WeatherApp.MVC.DataViewModels;
 using Weather.Model.Services;
+using System.Net;
+using Weather.Model.Repositories;
 
 namespace WeatherApp.MVC.Controllers
 {
@@ -12,15 +14,18 @@ namespace WeatherApp.MVC.Controllers
     {
         private readonly IWeatherService _weatherService;
 
+        private readonly IWeatherRepository _iweatherRepository;
+
         public ForecastController()
-            :this(new WeatherService())
+            :this(new WeatherService(), new WeatherRepository())
         {
-            //Empty
+            //Empty. Used for Dependency injection
         }
 
-        public ForecastController(WeatherService weatherService)
+        public ForecastController(IWeatherService weatherService, IWeatherRepository iweatherRepository)
         {
             _weatherService = weatherService;
+            _iweatherRepository = iweatherRepository;
         }
 
         [HttpGet]
@@ -70,22 +75,61 @@ namespace WeatherApp.MVC.Controllers
                                                      );
                     Session["geonames"] = model.Geonames;
                 }
-                
             }
             
-
             return View(model);
         }
 
-        [HttpPost]
-        public ActionResult GetForecastsByDay(int dayDifferanceFromToday)
+        // GET: /Forecast/Delete/777
+        public ActionResult Delete(int? id)
         {
-            //Ok Ajax request
-            return Json("adf");
-            //return PartialView("ForecastCollectionByDay");
+            if (!id.HasValue)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var forecast = _iweatherRepository.FindForecastById(id.Value);
+            if (forecast == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(forecast);
         }
 
 
+        /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        // POST: /Birthday/Delete/42
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            try
+            {
+                var studentToDelete = new Birthday { BirthdayId = id };
+                _iweatherRepository.DeleteBirthday(studentToDelete);
+                _iweatherRepository.Save();
+                TempData["success"] = "Födelsedatumet togs bort.";
+            }
+            catch (DataException)
+            {
+                TempData["error"] = "Misslyckades att ta bort födelsedatumet. Försök igen, och kvarstår problemet kontakta systemadministratören.";
+                return RedirectToAction("Delete", new { id = id });
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _iweatherRepository.Dispose();
+            base.Dispose(disposing);
+        }
+
+        */ 
+
+        //From default startup below....
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
