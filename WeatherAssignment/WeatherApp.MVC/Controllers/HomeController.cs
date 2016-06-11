@@ -10,6 +10,19 @@ namespace WeatherApp.MVC.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IWeatherService _weatherService;
+
+        HomeController()
+            :this(new WeatherService())
+        {
+            //Empty
+        }
+
+        HomeController(WeatherService weatherService)
+        {
+            _weatherService = weatherService;
+        }
+
         [HttpGet]
         public ActionResult Index()
         {

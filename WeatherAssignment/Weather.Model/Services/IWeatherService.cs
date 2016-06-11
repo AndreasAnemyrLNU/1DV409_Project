@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Weather.Model.Services
 {
-    interface IWeatherService
+    public interface IWeatherService
     {
         IEnumerable<Geoname> GetGeonames(string startsWith, string country = "SE", int maxRows = 10);
 
