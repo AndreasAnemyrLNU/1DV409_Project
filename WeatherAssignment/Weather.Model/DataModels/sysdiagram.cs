@@ -12,16 +12,12 @@ namespace Weather.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Geoname
+    public partial class sysdiagram
     {
-        public string toponymName { get; set; }
         public string name { get; set; }
-        public string lat { get; set; }
-        public string lng { get; set; }
-        public string geonameId { get; set; }
-        public string countryCode { get; set; }
-        public string countryName { get; set; }
-        public string fcl { get; set; }
-        public string fcode { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

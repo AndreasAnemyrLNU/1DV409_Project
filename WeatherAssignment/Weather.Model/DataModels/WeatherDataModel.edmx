@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="forecastId" />
           </Key>
-          <Property Name="forecastId" Type="int" Nullable="false" />
+          <Property Name="forecastId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="geonameId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="symbolNumer" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="symbolName" Type="varchar" MaxLength="50" Nullable="false" />
@@ -47,25 +47,20 @@
           <Property Name="fcl" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fcode" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Forecast_Geoname">
-          <End Role="Geoname" Type="Self.Geoname" Multiplicity="1" />
-          <End Role="Forecast" Type="Self.Forecast" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Geoname">
-              <PropertyRef Name="geonameId" />
-            </Principal>
-            <Dependent Role="Forecast">
-              <PropertyRef Name="geonameId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityContainer Name="WeatherModelStoreContainer">
           <EntitySet Name="Forecast" EntityType="Self.Forecast" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Geoname" EntityType="Self.Geoname" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Forecast_Geoname" Association="Self.FK_Forecast_Geoname">
-            <End Role="Geoname" EntitySet="Geoname" />
-            <End Role="Forecast" EntitySet="Forecast" />
-          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -84,15 +79,11 @@
           <Property Name="countryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fcl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Forecasts" Relationship="Weather.Model.FK_Forecast_Geoname" FromRole="Geoname" ToRole="Forecast" />
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Geonames" EntityType="Self.Geoname" />
           <EntitySet Name="Forecasts" EntityType="Weather.Model.Forecast" />
-          <AssociationSet Name="FK_Forecast_Geoname" Association="Weather.Model.FK_Forecast_Geoname">
-            <End Role="Geoname" EntitySet="Geonames" />
-            <End Role="Forecast" EntitySet="Forecasts" />
-          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="Weather.Model.sysdiagram" />
         </EntityContainer>
         <EntityType Name="Forecast">
           <Key>
@@ -121,20 +112,17 @@
           <Property Name="cloudsUnit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="timeFrom" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="timeTo" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Geoname" Relationship="Weather.Model.FK_Forecast_Geoname" FromRole="Forecast" ToRole="Geoname" />
         </EntityType>
-        <Association Name="FK_Forecast_Geoname">
-          <End Type="Weather.Model.Geoname" Role="Geoname" Multiplicity="1" />
-          <End Type="Weather.Model.Forecast" Role="Forecast" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Geoname">
-              <PropertyRef Name="geonameId" />
-            </Principal>
-            <Dependent Role="Forecast">
-              <PropertyRef Name="geonameId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -182,6 +170,17 @@
                 <ScalarProperty Name="symbolNumer" ColumnName="symbolNumer" />
                 <ScalarProperty Name="geonameId" ColumnName="geonameId" />
                 <ScalarProperty Name="forecastId" ColumnName="forecastId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Weather.Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

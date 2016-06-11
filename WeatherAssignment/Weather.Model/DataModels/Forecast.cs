@@ -37,7 +37,5 @@ namespace Weather.Model
         public string cloudsUnit { get; set; }
         public System.DateTime timeFrom { get; set; }
         public System.DateTime timeTo { get; set; }
-    
-        public virtual Geoname Geoname { get; set; }
     }
 }

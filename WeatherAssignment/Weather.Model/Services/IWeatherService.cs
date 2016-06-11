@@ -8,7 +8,7 @@ namespace Weather.Model.Services
 {
     public interface IWeatherService
     {
-        IEnumerable<Geoname> GetGeonames(string startsWith, string country = "SE", int maxRows = 10);
+        IEnumerable<Geoname> GetGeonames(string startsWith, string country, int maxRows);
 
         IEnumerable<Forecast> RefreshForecast(string cityId, string lat, string lon);
     }

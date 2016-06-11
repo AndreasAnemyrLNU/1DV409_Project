@@ -27,5 +27,6 @@ namespace Weather.Model.DataModels
     
         public virtual DbSet<Geoname> Geonames { get; set; }
         public virtual DbSet<Forecast> Forecasts { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }
