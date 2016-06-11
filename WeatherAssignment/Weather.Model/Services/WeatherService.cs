@@ -36,12 +36,12 @@ namespace Weather.Model.Services
         {
             IEnumerable<Forecast> forcasts;
 
-
-            // Try to find forcast if geonameid exists!
-            forcasts = _weatherRepository.FindForecastsByGeonameID(cityId);
-
             try
             {
+                // Try to find forcast if geonameid exists!
+                // READ in qrud. KRAV!
+                forcasts = _weatherRepository.FindForecastsByGeonameID(cityId);
+
                 //No hit in db. Exception is thrown and Get forcst from openweather api instead.
                 forcasts.First();
             }
@@ -56,6 +56,7 @@ namespace Weather.Model.Services
                 {
                     _weatherRepository.AddForecast(forcast);
                 }
+                //CREATE in CRUD. Krav!
                 _weatherRepository.Save();
 
             }

@@ -22,5 +22,17 @@
  
                 <p class="access-time">From @Model.timeFrom.Hour:00</p>
             </div>
+            
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.forecastId)
+                <div class="input-group-sm">
+                    @Html.ActionLink("Details", "Details", new { Model.geonameId }, new { @class = "action-link" })
+                    @Html.ActionLink("Edit", "Edit", new { Model.geonameId}, new { @class = "action-link" })
+                    @Html.ActionLink("Delete", "Edit", new { Model.geonameId }, new { @class = "action-link" })
+                </div>
+            }
+
         </div>
     </div> 

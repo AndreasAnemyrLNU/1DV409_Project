@@ -8,17 +8,17 @@ using Weather.Model.Services;
 
 namespace WeatherApp.MVC.Controllers
 {
-    public class HomeController : Controller
+    public class ForecastController : Controller
     {
         private readonly IWeatherService _weatherService;
 
-        public HomeController()
+        public ForecastController()
             :this(new WeatherService())
         {
             //Empty
         }
 
-        public HomeController(WeatherService weatherService)
+        public ForecastController(WeatherService weatherService)
         {
             _weatherService = weatherService;
         }
@@ -37,9 +37,11 @@ namespace WeatherApp.MVC.Controllers
             WeahterIndexViewModel model
         )
         {
+            
             if (ModelState.IsValid)
             {
-                if(Session["geonames"] != null)
+
+                if (Session["geonames"] != null)
                 {
                     model.Geonames = Session["geonames"] as IEnumerable<Weather.Model.Geoname>;
                     Session["geonames"] = null;
@@ -48,13 +50,16 @@ namespace WeatherApp.MVC.Controllers
 
                     model.Forecasts = _weatherService.RefreshForecast
                                                       (
-                                                          model.Geoname.geonameId,
+                                                          model.GeonameId,
                                                           model.Geoname.lat,
                                                           model.Geoname.lng
                                                       );
                 }
+
+
+
                 //State seems to be ok. But we have no geonames to test against!
-                //We use a webservice band save a collection Geonames in session Session["geonames"]
+                //We use a webservice and save a collection Geonames in session Session["geonames"]
                 else
                 {
                     model.Geonames = _weatherService.GetGeonames
@@ -65,7 +70,9 @@ namespace WeatherApp.MVC.Controllers
                                                      );
                     Session["geonames"] = model.Geonames;
                 }
+                
             }
+            
 
             return View(model);
         }
