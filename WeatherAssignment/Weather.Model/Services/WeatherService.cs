@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,16 +52,34 @@ namespace Weather.Model.Services
                 //Instead we request from OpenWeatherMap.
                 //We save this into db.
                 forcasts = new OpenWeatherMapWebservice().Get5DaysForecastByCityId(int.Parse(cityId), lat, lon);
-     
+
                 foreach (var forcast in forcasts)
                 {
-                    _weatherRepository.AddForecast(forcast);
-                }
-                //CREATE in CRUD. Krav!
-                _weatherRepository.Save();
-
+                    try
+                    {
+                        _weatherRepository.AddForecast(forcast);
+                        _weatherRepository.Save();
+                    }
+                    catch (DbEntityValidationException)
+                    {
+                        //Ignore adding...
+                        //Forecast data not valid.
+                        _weatherRepository.RemoveForecast(forcast);
+                    }
+                }         
             }
-            return forcasts;
+            try
+            {
+                _weatherRepository.FindForecastsByGeonameID(cityId).First();
+                return _weatherRepository.FindForecastsByGeonameID(cityId);
+            }
+            catch
+            {
+                //No hit!
+                //For user we presents response from openweathermap directly. 
+                //But Forcasts is not saved into db!
+                return forcasts;
+            }           
         }
     }
 }
