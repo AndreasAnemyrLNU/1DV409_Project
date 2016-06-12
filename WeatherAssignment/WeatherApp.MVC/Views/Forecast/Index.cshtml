@@ -64,7 +64,7 @@
             for (int i = 0; i < 5; i++)
             {
                 <div class="panel panel-default">
-                    <div class="panel panel-heading"><h3>@DateTime.Now.AddDays(i).DayOfWeek - (@DateTime.Now.ToShortDateString())</h3></div>
+                    <div class="panel panel-heading"><h3>@DateTime.Now.AddDays(i).DayOfWeek - (@DateTime.Now.AddDays(i).ToShortDateString())</h3></div>
                     <div class="panel panel-body">
                         <div id="forecast-collection">
                             @Html.Partial("ForecastCollectionByDay", Model.GetForecastsByDayZeroBased(i))
