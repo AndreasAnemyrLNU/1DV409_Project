@@ -28,9 +28,9 @@
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m => m.forecastId)
                 <div class="input-group-sm">
-                    @Html.ActionLink("Details", "Details", new { Id = Model.geonameId }, new { @class = "action-link" })
-                    @Html.ActionLink("Edit", "Edit", new { Id = Model.geonameId}, new { @class = "action-link" })
-                    @Html.ActionLink("Delete", "Delete", new { Id = Model.geonameId }, new { @class = "action-link" })
+                    @Html.ActionLink("Details", "Details", new { Id = Model.forecastId }, new { @class = "action-link" })
+                    @Html.ActionLink("Edit", "Edit", new { Id = Model.forecastId }, new { @class = "action-link" })
+                    @Html.ActionLink("Delete", "Delete", new { Id = Model.forecastId }, new { @class = "action-link" })
                 </div>
             }
 

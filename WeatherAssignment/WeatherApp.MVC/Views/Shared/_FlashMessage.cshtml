@@ -1,0 +1,19 @@
+﻿@if (TempData["success"] != null)
+{
+    <div class="panel panel-success">
+        <div class="panel-heading">Success</div>
+        <div class="panel-body">
+            <h4>@TempData["success"]</h4>
+        </div>
+    </div>
+}
+@if (TempData["error"] != null)
+{
+
+    <div class="panel panel-warning">
+        <div class="panel-heading">Error</div>
+        <div class="panel-body">
+            <h4>@TempData["error"]</h4>
+        </div>
+    </div>
+}

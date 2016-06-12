@@ -21,7 +21,7 @@ namespace Weather.Model.Repositories
         IEnumerable<Forecast> FindForecastsByGeonameID(string id);
         void AddForecast(Forecast forecast);
         void UpdateForecast(Forecast forecast);
-        void RemoveForecast(int id);
+        void RemoveForecast(Forecast forecast);
 
         void Save();
     }

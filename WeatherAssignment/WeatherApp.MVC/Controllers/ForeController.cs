@@ -7,6 +7,8 @@ using WeatherApp.MVC.DataViewModels;
 using Weather.Model.Services;
 using System.Net;
 using Weather.Model.Repositories;
+using Weather.Model;
+using System.Data;
 
 namespace WeatherApp.MVC.Controllers
 {
@@ -61,8 +63,6 @@ namespace WeatherApp.MVC.Controllers
                                                       );
                 }
 
-
-
                 //State seems to be ok. But we have no geonames to test against!
                 //We use a webservice and save a collection Geonames in session Session["geonames"]
                 else
@@ -78,6 +78,57 @@ namespace WeatherApp.MVC.Controllers
             }
             
             return View(model);
+        }
+
+        // GET: /Forecast/Edit/777
+        public ActionResult Edit(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Forecast forecast = _iweatherRepository.FindForecastById(id.Value);
+            if (forecast == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(forecast);
+        }
+
+        // POST: /Forecast/Edit/777
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(int id)
+        {
+            var forecasttoUpdate = _iweatherRepository.FindForecastById(id);
+
+            if (forecasttoUpdate == null)
+            {
+                return HttpNotFound();
+            }
+
+            //Fix Bind here to prevent overposting?
+            //Version Mats. L.
+            //if (TryUpdateModel(birthdaytoUpdate, String.Empty, new string[] { "Name", "Birthdate" }))
+            //https://github.com/1dv409/kursmaterial/blob/master/Exempel/NextBirthday.VS2013/NextBirthday.4.CRUD/Controllers/BirthdayController.cs#L83
+            if (TryUpdateModel(forecasttoUpdate))
+            {
+                try
+                {
+                    _iweatherRepository.UpdateForecast(forecasttoUpdate);
+                    _iweatherRepository.Save();
+                    TempData["success"] = "...now saved.";
+                    return RedirectToAction("Index");
+                }
+                catch (DataException)
+                {
+                    TempData["error"] = "Failed to save the changes. Try again , and the problem persists, contact your system administrator.";
+                }
+            }
+
+            return View(forecasttoUpdate);
         }
 
         // GET: /Forecast/Delete/777
@@ -97,24 +148,21 @@ namespace WeatherApp.MVC.Controllers
             return View(forecast);
         }
 
-
-        /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-        // POST: /Birthday/Delete/42
+        // POST: /Forecast/Delete/777
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                var studentToDelete = new Birthday { BirthdayId = id };
-                _iweatherRepository.DeleteBirthday(studentToDelete);
+                var forecastToDelete = new Forecast { forecastId = id };
+                _iweatherRepository.RemoveForecast(forecastToDelete);
                 _iweatherRepository.Save();
-                TempData["success"] = "Födelsedatumet togs bort.";
+                TempData["success"] = "Forecast was removed!";
             }
             catch (DataException)
             {
-                TempData["error"] = "Misslyckades att ta bort födelsedatumet. Försök igen, och kvarstår problemet kontakta systemadministratören.";
+                TempData["error"] = "Failed that - remove the Forecast. Try again, and the problem persists, contact your system administrator .";
                 return RedirectToAction("Delete", new { id = id });
             }
 
@@ -127,7 +175,22 @@ namespace WeatherApp.MVC.Controllers
             base.Dispose(disposing);
         }
 
-        */ 
+        // GET: /Forecast/Details/777
+        public ActionResult Details(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var forecast = _iweatherRepository.FindForecastById(id.Value);
+            if (forecast == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(forecast);
+        }
 
         //From default startup below....
         public ActionResult About()

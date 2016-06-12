@@ -50,9 +50,9 @@ namespace Weather.Model.Repositories
             _context.Entry(forecast).State = EntityState.Modified;
         }
 
-        public override void RemoveForecast(int id)
+        public override void RemoveForecast(Forecast forecast)
         {
-            Forecast forecast = _context.Forecasts.Find(id);
+            forecast = _context.Forecasts.Find(forecast.forecastId);
             _context.Forecasts.Remove(forecast);
         }
 

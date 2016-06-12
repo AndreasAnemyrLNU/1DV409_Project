@@ -45,7 +45,7 @@ namespace Weather.Model.Repositories
 
         public abstract void AddForecast(Forecast forecast);
         public abstract void UpdateForecast(Forecast forecast);
-        public abstract void RemoveForecast(int id);
+        public abstract void RemoveForecast(Forecast forecst);
 
         public abstract void Save();
        

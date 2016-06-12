@@ -165,6 +165,13 @@ form label{
     text-shadow: black 1px 1px 5px;
 }
 
+#editForm label{
+    color: black;
+    text-shadow: none;
+    text-align: left;
+    margin-right: 40px;
+}
+
 .btn {
 	-moz-box-shadow:inset 0px 1px 0px 0px #91b8b3;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #91b8b3;
@@ -233,14 +240,14 @@ i{
     z-index: 1;
 }
 
+
+
 .action-link{
     margin-left: 5px;
     font-size: 12px;
     color: green;
 }
-
 .compass:hover{
     transform: scale(1.5);
-    transition-duration: 1s;
 }
  

@@ -1,0 +1,188 @@
+﻿@model Weather.Model.Forecast
+
+<div>
+    <h4>Forecast</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.geonameId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.geonameId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.symbolNumer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.symbolNumer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.symbolName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.symbolName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.symbolVar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.symbolVar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.windDirectionDeg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.windDirectionDeg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.windDirectionCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.windDirectionCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.windDirectionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.windDirectionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.windSpeedMps)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.windSpeedMps)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.windSpeedName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.windSpeedName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.temperatureUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temperatureUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.temperatureValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temperatureValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.temperatureMin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temperatureMin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.temperatureMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temperatureMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pressureUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pressureUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pressureValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pressureValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.humidityValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.humidityValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.humidityUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.humidityUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cloudsValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cloudsValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cloudsAll)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cloudsAll)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cloudsUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cloudsUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.timeFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.timeFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.timeTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.timeTo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.forecastId }) |
+    @Html.ActionLink("Cancel", "Index")
+</p>
